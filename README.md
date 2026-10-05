@@ -1,51 +1,60 @@
 # SilencePNG
 
-Windows 환경에서 `oxipng`를 사용해 PNG 이미지를 무손실 압축 및 최적화하는 CLI 도구.
+A lightweight CLI tool for Windows that uses `oxipng` to losslessly compress and optimize PNG images.
 
-## 주요 기능
+## Features
 
-- **재귀 탐색**: 지정한 디렉토리 및 하위 디렉토리의 모든 `.png` 파일 탐색
-- **단일 파일 지원**: 단일 PNG 파일 경로 전달 시 해당 파일만 압축
-- **의존성 자동 설치**: 시스템에 `oxipng`가 없으면 `winget`을 통해 자동 설치
-- **작업 취소 처리**: `Ctrl + C` 입력 시 하위 프로세스를 즉시 종료하고 안전하게 중단
-- **결과 통계**: 최적화 전/후 크기, 절감 용량, 수정된 파일 수 출력
+- **Recursive scanning**: Finds and optimizes all `.png` files in the specified directory and its subdirectories.
+- **Single-file support**: Optimizes a single PNG file when a file path is provided.
+- **Automatic dependency installation**: Automatically installs `oxipng` via `winget` if it is not available on the system.
+- **Graceful cancellation**: Pressing `Ctrl + C` immediately terminates the active child process and safely stops the operation.
+- **Optimization statistics**: Displays the total size before and after optimization, space saved, and the number of modified files.
 
-## 요구 사항
+## Requirements
 
 - Windows (x64)
-- [oxipng](https://github.com/shssoichiro/oxipng) (미설치 시 최초 실행 시 winget으로 자동 설치)
+- [oxipng](https://github.com/shssoichiro/oxipng) — automatically installed via `winget` on first use if not already available.
 
-## 사용법
+## Installation
+
+Download and install SilencePNG from [here]().
+
+The installer automatically adds SilencePNG to the system `PATH`, so you can use the following command directly from Command Prompt after installation:
 
 ```cmd
-silencepng <파일 또는 폴더 경로>
+silencepng <path>
 ```
 
-### 실행 예시
+## Usage
 
-폴더 내 모든 PNG 최적화:
+```cmd
+silencepng <file or directory path>
+```
+
+### Examples
+
+Optimize all PNG files in a directory:
+
 ```cmd
 silencepng "C:\path\to\images"
 ```
 
-단일 PNG 최적화:
+Optimize a single PNG file:
+
 ```cmd
 silencepng "C:\path\to\image.png"
 ```
 
-## 빌드 방법
+## Building
 
 ### GCC (MinGW-w64)
+
 ```cmd
 gcc -O2 -s silencepng.c -o silencepng.exe
 ```
 
 ### MSVC
+
 ```cmd
 cl /O2 /Fe:silencepng.exe silencepng.c
 ```
-
-## 설치 패키지 (Inno Setup)
-
-[Inno Setup](https://jrsoftware.org/isdl.php)을 통해 `SilencePNG.iss`를 컴파일하면 설치 프로그램(`SilencePNG-Setup.exe`)이 생성됩니다.
-- 설치 시 시스템 `PATH` 환경 변수에 자동으로 설치 경로가 등록됩니다.
